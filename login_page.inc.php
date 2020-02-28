@@ -24,4 +24,4 @@ if (isset($errors) && !empty($errors)){
     <p><input type="submit" name="submit" value="Login"></p>
 </form>
 
-<?php include('includes/footer.html');
+<?php include('inc/footer.html');
