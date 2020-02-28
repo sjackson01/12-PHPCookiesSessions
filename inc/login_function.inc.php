@@ -34,52 +34,56 @@ function redirect_user($page = 'index.php'){
  * - an array of either errors or the database result
  */
 
-function check_login($dbc, $email = '', $pass = ''){
-
-
-    $error = []; // Initialize the error array
-    
-    // Validate the email address:
-    if (empty($email)){
-        $errors[] =  'You forgot to enter your email address.';
-    }else{
-        $p = mysqli_real_escape_string($dbc, trim($email));
-    }
-
-    // Validate the password:
-    if (empty($pass)){
-        $errors[] = 'You forgot to enter your password.';
-    }else{
-        $p = mysqli_real_escape_string($dbc, trim($pass));
-    }
-
-    // If no  errors: 
-    if (empty($errors)){
-
-        //Retrieve the user_id and first_name for that email/password combination:
-        $q = "SELECT user_id, first_name
-              FROM users 
-              WHERE email='$e' 
-              AND pass=SHA2('$p', 512)";
-        $r = @mysqli_query($dbc, $q); // Run the query.
+function check_login($dbc, $email = '', $pass = '') {
         
-        // Check the result: 
-        if (mysqli_num_rows($r) == 1){
+    $errors = []; // Initialize error array.
+        
+    // Validate the email address:
+    if (empty($email)) {
+        $errors[] = 'You forgot to enter your email address.';
+    } else {
+        $e = mysqli_real_escape_string ($dbc, trim($email));
+    }
+        
+    // Validate the password:
+    if (empty($pass)) {
+    $errors[] = 'You forgot to enter your password.';
+    } else {
+    $p = mysqli_real_escape_string ($dbc, trim($pass));
+    }
 
-            // Fetch the record:
-            $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    if (empty($errors)) { // If everything's OK.
 
-            // Return true and the record: 
-            return [true, $row];
-        }else{ // Not a match
-            $error[] = 'The email address and password entered to not match those on file.';
-        }
-    }// End of empty ($errors) IF
-
-    // Return false and the errors: 
-    return [false, $errors];
+    // Retrieve the user_id and first_name for that email/password combination:
+    $q = "SELECT user_id, first_name
+        FROM users WHERE email='$e' AND
+        pass=SHA2('$p', 512)";
     
-}  // End of check_login() function 
+    $r = @mysqli_query($dbc, $q);
+        // Run the query.
+
+    // Check the result:
+    if (mysqli_num_rows($r) == 1) {
+
+        // Fetch the record:
+        $row = mysqli_fetch_array($r,
+            MYSQLI_ASSOC);
+
+        // Return true and the record:
+        return [true, $row];
+
+    } else { // Not a match!
+        $errors[] = 'The email address
+            and password entered do not
+            match those on file.';
+    }
+
+    } // End of empty($errors) IF.
+
+    // Return false and the errors:
+    return [false, $errors];
+
+} // End of check_login() function.
 
  
  
