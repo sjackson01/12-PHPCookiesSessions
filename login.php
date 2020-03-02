@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if ($check) {
 
         // Set the cookies:
-        setcookie('user_id', $data['user_id']);
-        setcookie('first_name', $data['first_name']);
+        setcookie('user_id', $data['user_id'], time()+3600, '/', '',0,0);
+        setcookie('first_name', $data['first_name'], time()+3600, '/', '',0,0);
 
         // Redirect:
         redirect_user('loggedin.php');
