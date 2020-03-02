@@ -24,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_id'] = $data['user_id'];
         $_SESSION['first_name'] = $data['first_name'];
 
+        // Store HTTP_USER_AGENT
+        $_SESSION['agent'] = sha1($_SERVER['HTTP_USER_AGENT']);
+
         // Redirect:
         redirect_user('loggedin.php');
     }else{
