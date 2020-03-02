@@ -1,16 +1,21 @@
 <?php # Script 12.6  - logout.php
 // This page lets the user logout.
 
-// If no cookie is present, redirect the user:
-if (!isset($_COOKIE['user_id'])){
+session_start(); // Access the existing session
+
+// If no session is present, redirect the user:
+if (!isset($_SESSION['user_id'])){
 
     // Need the function: 
     require('includes/login_function.inc.php');
     redirect_user();
 
     } else {
-        setcookie('user_id', '', time()-3600, '', 0, 0);
-        setcookie('first_name', '', time()-3600, '/', '', 0,0);
+
+      $_SESSION = []; // Clear the variables.
+      session_destroy(); // Destroy the session iteself
+      setcookie('PHPSESSID', '', time()-3600, '/', 0,0);    
+        
 }
 
 // Set the page title and include the HTML header:
@@ -19,7 +24,7 @@ include('inc/header.php');
 
 // Print a customized message
 echo "<h1>Logged Out</h1>";
-echo "<p>You are now logged out, {$_COOKIE['first_name']}!</p>";
+echo 'You are now logged out.';
 
 include('inc/footer.php');
 
