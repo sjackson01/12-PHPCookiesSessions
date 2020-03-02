@@ -1,6 +1,8 @@
 <?php # Script 9.5 - register.php #2
 // This script performs an INSERT query to add a record to the users table.
 
+session_start();
+
 $page_title = 'Register';
 include('inc/header.php');
 

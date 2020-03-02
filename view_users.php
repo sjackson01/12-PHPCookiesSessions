@@ -1,6 +1,8 @@
 <?php # Script 9.6 - view_users.php #2
 // This script retrieves all the records from the users table.
 
+session_start();
+
 $page_title = 'View the Current Users';
 include('inc/header.php');
 
