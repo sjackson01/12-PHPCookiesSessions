@@ -2,7 +2,7 @@
 // This script retrieves all the records from the users table.
 
 $page_title = 'View the Current Users';
-include('inc/header.html');
+include('inc/header.php');
 
 // Page header:
 echo '<h1>Registered Users</h1>';
@@ -50,5 +50,5 @@ if ($num > 0) { // If it ran OK, display the records.
 
 mysqli_close($dbc); // Close the database connection.
 
-include('inc/footer.html');
+include('inc/footer.php');
 ?>

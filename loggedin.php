@@ -12,11 +12,11 @@ if (!isset($_COOKIE['user_id'])){
 
 // Set the page title and include the HTML header:
 $page_title= 'Logged In!';
-include('inc/header.html');
+include('inc/header.php');
 
 // Print a customized message: 
 echo "<h1>Logged In!</h1>
       <p> you are now logged in,{$_COOKIE['first_name']}!</p>
       <p><a href=\"logout.php\">Logout</a></p>";
 
-include('inc/footer.html');      
+include('inc/footer.php');      

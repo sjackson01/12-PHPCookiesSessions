@@ -4,7 +4,7 @@
 
 // Include the header:
 $page_title = 'Login';
-include('header.html');
+include('header.php');
 
 // Print any error messages, if they exists:
 if (isset($errors) && !empty($errors)){
@@ -24,4 +24,4 @@ if (isset($errors) && !empty($errors)){
     <p><input type="submit" name="submit" value="Login"></p>
 </form>
 
-<?php include('footer.html');
+<?php include('footer.php');
