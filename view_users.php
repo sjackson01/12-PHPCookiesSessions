@@ -13,10 +13,10 @@ require('mysqli_connect.php'); // Connect to the db.
 
 // Make the query:
 $q = "SELECT CONCAT(last_name, ', ', first_name) AS name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr FROM users ORDER BY registration_date ASC";
-$r = @mysqli_query($dbc, $q); // Run the query.
+$r = $mysqli->query($q); // Run the query.
 
 // Count the number of returned rows:
-$num = mysqli_num_rows($r);
+$num = $r->num_rows;
 
 if ($num > 0) { // If it ran OK, display the records.
 
@@ -35,14 +35,14 @@ if ($num > 0) { // If it ran OK, display the records.
 ';
 
 	// Fetch and print all the records:
-	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-		echo '<tr><td align="left">' . $row['name'] . '</td><td align="left">' . $row['dr'] . '</td></tr>
-		';
+	while ($row = $r->fetch_object()) {
+		echo '<tr><td align="left">' . $row->name . '</td><td align="left">' . $row->dr . '</td></tr>';
 	}
 
 	echo '</tbody></table>'; // Close the table.
 
-	mysqli_free_result ($r); // Free up the resources.
+	$r->free(); // Free up the resources
+	unset($r); 
 
 } else { // If no records were returned.
 
@@ -50,7 +50,8 @@ if ($num > 0) { // If it ran OK, display the records.
 
 }
 
-mysqli_close($dbc); // Close the database connection.
+$mysqli->close();
+unset($mysqli);
 
 include('inc/footer.php');
 ?>
